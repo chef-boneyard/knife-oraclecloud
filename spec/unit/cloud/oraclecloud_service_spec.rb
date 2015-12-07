@@ -45,7 +45,7 @@ describe Chef::Knife::Cloud::OraclecloudService do
     let(:connection) { double('connection') }
     it 'prepends the identity domain' do
       allow(service).to receive(:connection).and_return(connection)
-      allow(connection).to receive(:compute_identity_domain).and_return('test_domain')
+      allow(connection).to receive(:full_identity_domain).and_return('test_domain')
 
       expect(service.prepend_identity_domain('foo')).to eq('test_domain/foo')
     end

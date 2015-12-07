@@ -53,7 +53,7 @@ class Chef
         end
 
         def prepend_identity_domain(path)
-          "#{connection.compute_identity_domain}/#{path}"
+          "#{connection.full_identity_domain}/#{path}"
         end
 
         def create_server(options = {})
