@@ -40,6 +40,18 @@ knife[:oraclecloud_domain]   = 'my_identity_domain'
 knife oraclecloud command --oraclecloud-username myuser ...
 ```
 
+### Using with a Oracle Cloud private cloud endpoint
+
+If you are running a deployment of Oracle Cloud behind your firewall, you need to indicate that the API endpoint is a private cloud endpoint. This is required due to the differences in how the identity domain is used in their public cloud vs. their private cloud.
+
+To indicate you are using a private cloud, set the following in your knife.rb:
+
+```ruby
+knife[:oraclecloud_private_cloud] = true
+```
+
+... or simply pass `--oraclecloud-private-cloud` on the CLI.
+
 ## Usage
 
 ### knife oraclecloud server create (options)

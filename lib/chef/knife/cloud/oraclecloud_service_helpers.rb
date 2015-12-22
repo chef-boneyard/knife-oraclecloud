@@ -27,6 +27,7 @@ class Chef
                                                      identity_domain: locate_config_value(:oraclecloud_domain),
                                                      wait_time:       locate_config_value(:wait_time),
                                                      refresh_time:    locate_config_value(:request_refresh_rate),
+                                                     private_cloud:   locate_config_value(:oraclecloud_private_cloud),
                                                      verify_ssl:      verify_ssl?)
         end
 
