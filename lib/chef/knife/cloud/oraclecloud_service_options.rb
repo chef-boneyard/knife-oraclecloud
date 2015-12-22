@@ -45,6 +45,12 @@ class Chef
               boolean:     true,
               default:     false
 
+            option :oraclecloud_private_cloud,
+              long:        '--oraclecloud-private-cloud',
+              description: 'Indicate the --oraclecloud-api-url is a private cloud endpoint',
+              boolean:     true,
+              default:     false
+
             option :request_refresh_rate,
               long:        '--request-refresh-rate SECS',
               description: 'Number of seconds to sleep between each check of the request status, defaults to 2',

@@ -40,6 +40,7 @@ class Chef
           @verify_ssl      = options[:verify_ssl]
           @wait_time       = options[:wait_time]
           @refresh_time    = options[:refresh_time]
+          @private_cloud   = options[:private_cloud]
         end
 
         def connection
@@ -48,7 +49,8 @@ class Chef
             identity_domain: @identity_domain,
             username:        @username,
             password:        @password,
-            verify_ssl:      @verify_ssl
+            verify_ssl:      @verify_ssl,
+            private_cloud:   @private_cloud
           )
         end
 

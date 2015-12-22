@@ -41,6 +41,7 @@ describe 'Chef::Knife::Cloud::OraclecloudServiceHelpers' do
       allow(tester).to receive(:locate_config_value).with(:oraclecloud_domain).and_return('test_domain')
       allow(tester).to receive(:locate_config_value).with(:wait_time).and_return(300)
       allow(tester).to receive(:locate_config_value).with(:request_refresh_rate).and_return(5)
+      allow(tester).to receive(:locate_config_value).with(:oraclecloud_private_cloud).and_return(false)
       allow(tester).to receive(:verify_ssl?).and_return(true)
 
       expect(Chef::Knife::Cloud::OraclecloudService).to receive(:new)
@@ -50,6 +51,7 @@ describe 'Chef::Knife::Cloud::OraclecloudServiceHelpers' do
               identity_domain: 'test_domain',
               wait_time:       300,
               refresh_time:    5,
+              private_cloud:   false,
               verify_ssl:      true)
 
       tester.create_service_instance
