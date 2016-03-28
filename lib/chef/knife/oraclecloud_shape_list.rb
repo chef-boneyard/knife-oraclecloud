@@ -16,11 +16,11 @@
 # limitations under the License.
 #
 
-require 'chef/knife'
-require 'chef/knife/cloud/list_resource_command'
-require 'chef/knife/cloud/oraclecloud_service'
-require 'chef/knife/cloud/oraclecloud_service_helpers'
-require 'chef/knife/cloud/oraclecloud_service_options'
+require "chef/knife"
+require "chef/knife/cloud/list_resource_command"
+require "chef/knife/cloud/oraclecloud_service"
+require "chef/knife/cloud/oraclecloud_service_helpers"
+require "chef/knife/cloud/oraclecloud_service_options"
 
 class Chef
   class Knife
@@ -29,17 +29,17 @@ class Chef
         include OraclecloudServiceHelpers
         include OraclecloudServiceOptions
 
-        banner 'knife oraclecloud shape list'
+        banner "knife oraclecloud shape list"
 
         def before_exec_command
           @columns_with_info = [
-            { label: 'Shape Name', key: 'name' },
-            { label: 'CPUs',       key: 'cpus' },
-            { label: 'RAM',        key: 'ram' },
-            { label: 'I/O',        key: 'io' }
+            { label: "Shape Name", key: "name" },
+            { label: "CPUs",       key: "cpus" },
+            { label: "RAM",        key: "ram" },
+            { label: "I/O",        key: "io" },
           ]
 
-          @sort_by_field = 'name'
+          @sort_by_field = "name"
         end
 
         def query_resource

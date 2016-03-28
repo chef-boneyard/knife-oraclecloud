@@ -16,12 +16,12 @@
 # limitations under the License.
 #
 
-require 'chef/knife'
-require 'chef/knife/cloud/server/create_command'
-require 'chef/knife/cloud/server/create_options'
-require 'chef/knife/cloud/oraclecloud_service'
-require 'chef/knife/cloud/oraclecloud_service_helpers'
-require 'chef/knife/cloud/oraclecloud_service_options'
+require "chef/knife"
+require "chef/knife/cloud/server/create_command"
+require "chef/knife/cloud/server/create_options"
+require "chef/knife/cloud/oraclecloud_service"
+require "chef/knife/cloud/oraclecloud_service_helpers"
+require "chef/knife/cloud/oraclecloud_service_options"
 
 class Chef
   class Knife
@@ -31,29 +31,29 @@ class Chef
         include OraclecloudServiceHelpers
         include ServerCreateOptions
 
-        banner 'knife oraclecloud server create (options)'
+        banner "knife oraclecloud server create (options)"
 
         option :hostname,
-               long:        '--hostname HOSTNAME',
-               description: 'hostname of the server to be created',
+               long:        "--hostname HOSTNAME",
+               description: "hostname of the server to be created",
                proc:        proc { |i| Chef::Config[:knife][:hostname] = i }
 
         option :shape,
-               long:        '--shape SHAPE',
-               description: 'shape name (i.e. size of instance) to be created',
+               long:        "--shape SHAPE",
+               description: "shape name (i.e. size of instance) to be created",
                proc:        proc { |i| Chef::Config[:knife][:shape] = i }
 
         option :public_ip,
-               long:        '--public-ip POOL_OR_RESERVATION_NAME',
+               long:        "--public-ip POOL_OR_RESERVATION_NAME",
                description: 'optional; "pool" to use the default public IP pool, or specify an IP reservation name to use for the public IP'
 
         option :label,
-               long:        '--label LABEL',
-               description: 'optional; text to use as label for the new instance and orchestration'
+               long:        "--label LABEL",
+               description: "optional; text to use as label for the new instance and orchestration"
 
         option :sshkeys,
-               long:        '--sshkeys SSHKEY1,SSHKEY2',
-               description: 'optional; comma-separated list of ssh keys to enable for this instance. Key name must be user@domain.io/keyname.'
+               long:        "--sshkeys SSHKEY1,SSHKEY2",
+               description: "optional; comma-separated list of ssh keys to enable for this instance. Key name must be user@domain.io/keyname."
 
         def validate_params!
           super
@@ -63,13 +63,13 @@ class Chef
         def public_ip
           return nil unless locate_config_value(:public_ip)
 
-          (locate_config_value(:public_ip) == 'pool') ? :pool : "ipreservation:#{locate_config_value(:public_ip)}"
+          (locate_config_value(:public_ip) == "pool") ? :pool : "ipreservation:#{locate_config_value(:public_ip)}"
         end
 
         def sshkeys
           return [] unless locate_config_value(:sshkeys)
 
-          locate_config_value(:sshkeys).split(',').map { |key| service.prepend_identity_domain(key) }
+          locate_config_value(:sshkeys).split(",").map { |key| service.prepend_identity_domain(key) }
         end
 
         def label
@@ -85,7 +85,7 @@ class Chef
             image:            locate_config_value(:image),
             label:            label,
             public_ip:        public_ip,
-            sshkeys:          sshkeys
+            sshkeys:          sshkeys,
           }
         end
 

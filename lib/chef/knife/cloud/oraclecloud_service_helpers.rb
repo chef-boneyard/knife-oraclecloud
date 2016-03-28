@@ -38,7 +38,7 @@ class Chef
         def check_for_missing_config_values!(*keys)
           missing = keys.select { |x| locate_config_value(x).nil? }
 
-          unless missing.empty? # rubocop:disable Style/GuardClause
+          unless missing.empty?
             ui.error("The following required parameters are missing: #{missing.join(', ')}")
             exit(1)
           end

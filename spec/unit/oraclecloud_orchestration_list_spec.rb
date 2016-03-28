@@ -16,13 +16,13 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
-require 'chef/knife/oraclecloud_orchestration_list'
-require 'support/shared_examples_for_command'
+require "spec_helper"
+require "chef/knife/oraclecloud_orchestration_list"
+require "support/shared_examples_for_command"
 
 describe Chef::Knife::Cloud::OraclecloudOrchestrationList do
   let(:command) { described_class.new }
-  let(:service) { double('service') }
+  let(:service) { double("service") }
 
   before do
     allow(command).to receive(:service).and_return(service)
@@ -31,26 +31,26 @@ describe Chef::Knife::Cloud::OraclecloudOrchestrationList do
   it_behaves_like Chef::Knife::Cloud::Command, described_class.new
 
   describe '#query_resource' do
-    it 'calls list_orchestrations' do
+    it "calls list_orchestrations" do
       expect(service).to receive(:list_orchestrations)
       command.query_resource
     end
   end
 
   describe '#format_status_value' do
-    it 'returns green when the status is ready' do
-      expect(command.ui).to receive(:color).with('ready', :green)
-      command.format_status_value('ready')
+    it "returns green when the status is ready" do
+      expect(command.ui).to receive(:color).with("ready", :green)
+      command.format_status_value("ready")
     end
 
-    it 'returns red when the status is stopped' do
-      expect(command.ui).to receive(:color).with('stopped', :red)
-      command.format_status_value('stopped')
+    it "returns red when the status is stopped" do
+      expect(command.ui).to receive(:color).with("stopped", :red)
+      command.format_status_value("stopped")
     end
 
-    it 'returns yellow when the status is something random' do
-      expect(command.ui).to receive(:color).with('random', :yellow)
-      command.format_status_value('random')
+    it "returns yellow when the status is something random" do
+      expect(command.ui).to receive(:color).with("random", :yellow)
+      command.format_status_value("random")
     end
   end
 end

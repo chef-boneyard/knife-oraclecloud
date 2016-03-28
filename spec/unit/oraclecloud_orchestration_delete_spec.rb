@@ -16,32 +16,32 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
-require 'chef/knife/oraclecloud_orchestration_delete'
-require 'support/shared_examples_for_command'
+require "spec_helper"
+require "chef/knife/oraclecloud_orchestration_delete"
+require "support/shared_examples_for_command"
 
 describe Chef::Knife::Cloud::OraclecloudOrchestrationDelete do
-  let(:command) { described_class.new(%w(orch1 orch2)) }
-  let(:service) { double('service') }
+  let(:command) { described_class.new(%w{orch1 orch2}) }
+  let(:service) { double("service") }
 
   before do
     allow(command).to receive(:service).and_return(service)
   end
 
-  it_behaves_like Chef::Knife::Cloud::Command, described_class.new(%w(orch1 orch2))
+  it_behaves_like Chef::Knife::Cloud::Command, described_class.new(%w{orch1 orch2})
 
   describe '#validate_params!' do
-    context 'when no orchestrations are provided' do
+    context "when no orchestrations are provided" do
       let(:command) { described_class.new }
 
-      it 'prints an error and exits' do
+      it "prints an error and exits" do
         expect(command.ui).to receive(:error)
         expect { command.validate_params! }.to raise_error(SystemExit)
       end
     end
 
-    context 'when orchestrations are provided' do
-      it 'does not print an error or raise an exception' do
+    context "when orchestrations are provided" do
+      it "does not print an error or raise an exception" do
         expect(command.ui).not_to receive(:error)
         expect { command.validate_params! }.not_to raise_error
       end
@@ -49,9 +49,9 @@ describe Chef::Knife::Cloud::OraclecloudOrchestrationDelete do
   end
 
   describe '#execute_command' do
-    it 'calls delete_orchestration for each orchestration' do
-      expect(service).to receive(:delete_orchestration).with('orch1')
-      expect(service).to receive(:delete_orchestration).with('orch2')
+    it "calls delete_orchestration for each orchestration" do
+      expect(service).to receive(:delete_orchestration).with("orch1")
+      expect(service).to receive(:delete_orchestration).with("orch2")
 
       command.execute_command
     end

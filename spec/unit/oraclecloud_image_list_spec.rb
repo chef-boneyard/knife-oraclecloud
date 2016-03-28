@@ -16,13 +16,13 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
-require 'chef/knife/oraclecloud_image_list'
-require 'support/shared_examples_for_command'
+require "spec_helper"
+require "chef/knife/oraclecloud_image_list"
+require "support/shared_examples_for_command"
 
 describe Chef::Knife::Cloud::OraclecloudImageList do
   let(:command) { described_class.new }
-  let(:service) { double('service') }
+  let(:service) { double("service") }
 
   before do
     allow(command).to receive(:service).and_return(service)
@@ -31,7 +31,7 @@ describe Chef::Knife::Cloud::OraclecloudImageList do
   it_behaves_like Chef::Knife::Cloud::Command, described_class.new
 
   describe '#query_resource' do
-    it 'calls list_images' do
+    it "calls list_images" do
       expect(service).to receive(:list_images)
       command.query_resource
     end
