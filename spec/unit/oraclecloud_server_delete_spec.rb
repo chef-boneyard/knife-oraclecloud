@@ -16,24 +16,24 @@
 # limitations under the License.
 #
 
-require 'spec_helper'
-require 'chef/knife/oraclecloud_server_delete'
-require 'support/shared_examples_for_command'
+require "spec_helper"
+require "chef/knife/oraclecloud_server_delete"
+require "support/shared_examples_for_command"
 
 describe Chef::Knife::Cloud::OraclecloudServerDelete do
-  let(:command) { described_class.new(%w(server1)) }
-  let(:service) { double('service') }
-  let(:server)  { double('server') }
+  let(:command) { described_class.new(%w{server1}) }
+  let(:service) { double("service") }
+  let(:server)  { double("server") }
 
-  it_behaves_like Chef::Knife::Cloud::Command, described_class.new(%w(server1))
+  it_behaves_like Chef::Knife::Cloud::Command, described_class.new(%w{server1})
 
-  it 'executes the correct methods in the overrided execute_command' do
+  it "executes the correct methods in the overrided execute_command" do
     allow(command).to receive(:service).and_return(service)
-    allow(server).to receive(:label).and_return('test_label')
+    allow(server).to receive(:label).and_return("test_label")
 
-    expect(service).to receive(:get_server).with('server1').and_return(server)
-    expect(service).to receive(:delete_server).with('server1')
-    expect(command).to receive(:delete_from_chef).with('test_label')
+    expect(service).to receive(:get_server).with("server1").and_return(server)
+    expect(service).to receive(:delete_server).with("server1")
+    expect(command).to receive(:delete_from_chef).with("test_label")
 
     command.execute_command
   end
