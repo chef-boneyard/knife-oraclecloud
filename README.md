@@ -1,7 +1,7 @@
 # knife-oraclecloud
 
 This is a Knife plugin that will allow you to interact with
-Oracle Cloud.
+Oracle Cloud Infrastructure Classic. Please use [knife-oci](https://github.com/oracle/knife-oci) for the newer Oracle Cloud Infrastructure (aka 'OCI').
 
 ## Installation
 
