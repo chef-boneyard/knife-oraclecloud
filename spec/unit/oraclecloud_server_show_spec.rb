@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -16,13 +18,13 @@
 # limitations under the License.
 #
 
-require "spec_helper"
-require "chef/knife/oraclecloud_server_show"
-require "support/shared_examples_for_command"
+require 'spec_helper'
+require 'chef/knife/oraclecloud_server_show'
+require 'support/shared_examples_for_command'
 
 describe Chef::Knife::Cloud::OraclecloudServerShow do
-  let(:command) { described_class.new(%w{server1}) }
-  let(:service) { double("service") }
+  let(:command) { described_class.new(%w[server1]) }
+  let(:service) { double('service') }
 
   before do
     allow(command).to receive(:service).and_return(service)
@@ -31,24 +33,24 @@ describe Chef::Knife::Cloud::OraclecloudServerShow do
   it_behaves_like Chef::Knife::Cloud::Command, described_class.new
 
   describe '#validate_params!' do
-    context "when no server is provided" do
+    context 'when no server is provided' do
       let(:command) { described_class.new }
-      it "print an error and exits" do
+      it 'print an error and exits' do
         expect(command.ui).to receive(:error)
         expect { command.validate_params! }.to raise_error(SystemExit)
       end
     end
 
-    context "when more than one server is provided" do
-      let(:command) { described_class.new(%w{server1 server2}) }
-      it "print an error and exits" do
+    context 'when more than one server is provided' do
+      let(:command) { described_class.new(%w[server1 server2]) }
+      it 'print an error and exits' do
         expect(command.ui).to receive(:error)
         expect { command.validate_params! }.to raise_error(SystemExit)
       end
     end
 
-    context "when one server is provided" do
-      it "does not print an error and does not exit" do
+    context 'when one server is provided' do
+      it 'does not print an error and does not exit' do
         expect(command.ui).not_to receive(:error)
         expect { command.validate_params! }.not_to raise_error
       end

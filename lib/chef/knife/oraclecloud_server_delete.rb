@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -16,12 +18,12 @@
 # limitations under the License.
 #
 
-require "chef/knife"
-require "chef/knife/cloud/server/delete_options"
-require "chef/knife/cloud/server/delete_command"
-require "chef/knife/cloud/oraclecloud_service"
-require "chef/knife/cloud/oraclecloud_service_helpers"
-require "chef/knife/cloud/oraclecloud_service_options"
+require 'chef/knife'
+require 'chef/knife/cloud/server/delete_options'
+require 'chef/knife/cloud/server/delete_command'
+require 'chef/knife/cloud/oraclecloud_service'
+require 'chef/knife/cloud/oraclecloud_service_helpers'
+require 'chef/knife/cloud/oraclecloud_service_options'
 
 class Chef
   class Knife
@@ -31,7 +33,7 @@ class Chef
         include OraclecloudServiceHelpers
         include OraclecloudServiceOptions
 
-        banner "knife oraclecloud server delete INSTANCE_ID [INSTANCE_ID] (options)"
+        banner 'knife oraclecloud server delete INSTANCE_ID [INSTANCE_ID] (options)'
 
         # overriding this method from knife-cloud so we can pull the instance label
         # to pass to delete_from_chef rather than the resource ID

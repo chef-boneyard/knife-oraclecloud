@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -16,11 +18,11 @@
 # limitations under the License.
 #
 
-require "chef/knife"
-require "chef/knife/cloud/list_resource_command"
-require "chef/knife/cloud/oraclecloud_service"
-require "chef/knife/cloud/oraclecloud_service_helpers"
-require "chef/knife/cloud/oraclecloud_service_options"
+require 'chef/knife'
+require 'chef/knife/cloud/list_resource_command'
+require 'chef/knife/cloud/oraclecloud_service'
+require 'chef/knife/cloud/oraclecloud_service_helpers'
+require 'chef/knife/cloud/oraclecloud_service_options'
 
 class Chef
   class Knife
@@ -29,15 +31,15 @@ class Chef
         include OraclecloudServiceHelpers
         include OraclecloudServiceOptions
 
-        banner "knife oraclecloud image list"
+        banner 'knife oraclecloud image list'
 
         def before_exec_command
           @columns_with_info = [
-            { label: "Image Name",  key: "name" },
-            { label: "Description", key: "description" },
+            { label: 'Image Name',  key: 'name' },
+            { label: 'Description', key: 'description' }
           ]
 
-          @sort_by_field = "name"
+          @sort_by_field = 'name'
         end
 
         def query_resource
@@ -47,9 +49,9 @@ class Chef
         def format_status_value(status)
           status = status.downcase
           status_color = case status
-                         when "ready"
+                         when 'ready'
                            :green
-                         when "stopped"
+                         when 'stopped'
                            :red
                          else
                            :yellow

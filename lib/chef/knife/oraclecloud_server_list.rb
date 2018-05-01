@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -16,12 +18,12 @@
 # limitations under the License.
 #
 
-require "chef/knife"
-require "chef/knife/cloud/server/list_command"
-require "chef/knife/cloud/server/list_options"
-require "chef/knife/cloud/oraclecloud_service"
-require "chef/knife/cloud/oraclecloud_service_helpers"
-require "chef/knife/cloud/oraclecloud_service_options"
+require 'chef/knife'
+require 'chef/knife/cloud/server/list_command'
+require 'chef/knife/cloud/server/list_options'
+require 'chef/knife/cloud/oraclecloud_service'
+require 'chef/knife/cloud/oraclecloud_service_helpers'
+require 'chef/knife/cloud/oraclecloud_service_options'
 
 class Chef
   class Knife
@@ -30,27 +32,27 @@ class Chef
         include OraclecloudServiceHelpers
         include OraclecloudServiceOptions
 
-        banner "knife oraclecloud server list"
+        banner 'knife oraclecloud server list'
 
         def before_exec_command
           @columns_with_info = [
-            { label: "Hostname",         key: "hostname" },
-            { label: "Status",           key: "status", value_callback: method(:format_status_value) },
-            { label: "Shape",            key: "shape" },
-            { label: "Image",            key: "image" },
-            { label: "Instance ID",      key: "id" },
-            { label: "Orchestration ID", key: "orchestration", value_callback: method(:format_orchestration_value) },
+            { label: 'Hostname',         key: 'hostname' },
+            { label: 'Status',           key: 'status', value_callback: method(:format_status_value) },
+            { label: 'Shape',            key: 'shape' },
+            { label: 'Image',            key: 'image' },
+            { label: 'Instance ID',      key: 'id' },
+            { label: 'Orchestration ID', key: 'orchestration', value_callback: method(:format_orchestration_value) }
           ]
 
-          @sort_by_field = "name"
+          @sort_by_field = 'name'
         end
 
         def format_status_value(status)
           status = status.downcase
           status_color = case status
-                         when "running"
+                         when 'running'
                            :green
-                         when "stopped"
+                         when 'stopped'
                            :red
                          else
                            :yellow
@@ -59,7 +61,7 @@ class Chef
         end
 
         def format_orchestration_value(orchestration)
-          orchestration.nil? ? "none" : orchestration
+          orchestration.nil? ? 'none' : orchestration
         end
       end
     end

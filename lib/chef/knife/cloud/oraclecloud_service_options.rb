@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -23,38 +25,38 @@ class Chef
         def self.included(includer)
           includer.class_eval do
             option :oraclecloud_api_url,
-              long:        "--oraclecloud-api-url API_URL",
-              description: "URL for the oraclecloud API server"
+                   long:        '--oraclecloud-api-url API_URL',
+                   description: 'URL for the oraclecloud API server'
 
             option :oraclecloud_username,
-              long:        "--oraclecloud-username USERNAME",
-              description: "Username to use with the oraclecloud API"
+                   long:        '--oraclecloud-username USERNAME',
+                   description: 'Username to use with the oraclecloud API'
 
             option :oraclecloud_password,
-              long:        "--oraclecloud-password PASSWORD",
-              description: "Password to use with the oraclecloud API"
+                   long:        '--oraclecloud-password PASSWORD',
+                   description: 'Password to use with the oraclecloud API'
 
             option :oraclecloud_domain,
-              long:        "--oraclecloud-domain IDENTITYDOMAIN",
-              description: "Identity domain to use with the oraclecloud API"
+                   long:        '--oraclecloud-domain IDENTITYDOMAIN',
+                   description: 'Identity domain to use with the oraclecloud API'
 
             option :oraclecloud_disable_ssl_verify,
-              long:        "--oraclecloud-disable-ssl-verify",
-              description: "Skip any SSL verification for the oraclecloud API",
-              boolean:     true,
-              default:     false
+                   long:        '--oraclecloud-disable-ssl-verify',
+                   description: 'Skip any SSL verification for the oraclecloud API',
+                   boolean:     true,
+                   default:     false
 
             option :oraclecloud_private_cloud,
-              long:        "--oraclecloud-private-cloud",
-              description: "Indicate the --oraclecloud-api-url is a private cloud endpoint",
-              boolean:     true,
-              default:     false
+                   long:        '--oraclecloud-private-cloud',
+                   description: 'Indicate the --oraclecloud-api-url is a private cloud endpoint',
+                   boolean:     true,
+                   default:     false
 
             option :request_refresh_rate,
-              long:        "--request-refresh-rate SECS",
-              description: "Number of seconds to sleep between each check of the request status, defaults to 2",
-              default:     2,
-              proc:        proc { |secs| secs.to_i }
+                   long:        '--request-refresh-rate SECS',
+                   description: 'Number of seconds to sleep between each check of the request status, defaults to 2',
+                   default:     2,
+                   proc:        proc { |secs| secs.to_i }
           end
         end
       end

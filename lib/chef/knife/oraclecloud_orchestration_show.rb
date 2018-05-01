@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -16,11 +18,11 @@
 # limitations under the License.
 #
 
-require "chef/knife"
-require "chef/knife/cloud/command"
-require "chef/knife/cloud/oraclecloud_service"
-require "chef/knife/cloud/oraclecloud_service_helpers"
-require "chef/knife/cloud/oraclecloud_service_options"
+require 'chef/knife'
+require 'chef/knife/cloud/command'
+require 'chef/knife/cloud/oraclecloud_service'
+require 'chef/knife/cloud/oraclecloud_service_helpers'
+require 'chef/knife/cloud/oraclecloud_service_options'
 
 class Chef
   class Knife
@@ -29,16 +31,16 @@ class Chef
         include OraclecloudServiceHelpers
         include OraclecloudServiceOptions
 
-        banner "knife oraclecloud orchestration show ORCHESTRATION_ID (options)"
+        banner 'knife oraclecloud orchestration show ORCHESTRATION_ID (options)'
 
         def validate_params!
           if @name_args.empty?
-            ui.error("You must supply an Orchestration ID for an orchestration to display.")
+            ui.error('You must supply an Orchestration ID for an orchestration to display.')
             exit 1
           end
 
           if @name_args.size > 1
-            ui.error("You may only supply one Orchestration ID.")
+            ui.error('You may only supply one Orchestration ID.')
             exit 1
           end
 
@@ -48,14 +50,14 @@ class Chef
         def execute_command
           orchestration = service.get_orchestration(@name_args.first)
 
-          ui.msg(ui.color("Orchestration Summary", :bold))
+          ui.msg(ui.color('Orchestration Summary', :bold))
           service.orchestration_summary(orchestration)
-          ui.msg("")
+          ui.msg('')
 
           orchestration.instances.each do |instance|
             ui.msg(ui.color("Instance #{instance.id}", :bold))
             service.server_summary(instance)
-            ui.msg("")
+            ui.msg('')
           end
         end
       end
