@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -16,11 +18,11 @@
 # limitations under the License.
 #
 
-require "chef/knife/cloud/exceptions"
-require "chef/knife/cloud/service"
-require "chef/knife/cloud/helpers"
-require "chef/knife/cloud/oraclecloud_service_helpers"
-require "oraclecloud"
+require 'chef/knife/cloud/exceptions'
+require 'chef/knife/cloud/service'
+require 'chef/knife/cloud/helpers'
+require 'chef/knife/cloud/oraclecloud_service_helpers'
+require 'oraclecloud'
 
 class Chef
   class Knife
@@ -62,15 +64,17 @@ class Chef
           orchestration = create_orchestration(options)
           orchestration.start
           ui.msg("Orchestration #{orchestration.name_with_container} started - waiting for it to complete...")
-          wait_for_status(orchestration, "ready")
+          wait_for_status(orchestration, 'ready')
           ui.msg("Orchestration started successfully.\n")
           orchestration_summary(orchestration)
-          ui.msg("")
+          ui.msg('')
 
           servers = orchestration.instances
-          raise CloudExceptions::ServerCreateError, "The orchestration created more than one server, " \
-            "but we were only expecting 1" if servers.length > 1
-          raise CloudExceptions::ServerCreateError, "The orchestration did not create any servers" if servers.empty?
+          if servers.length > 1
+            raise CloudExceptions::ServerCreateError, 'The orchestration created more than one server, ' \
+              'but we were only expecting 1'
+          end
+          raise CloudExceptions::ServerCreateError, 'The orchestration did not create any servers' if servers.empty?
 
           servers.first
         end
@@ -78,44 +82,44 @@ class Chef
         def delete_server(instance_id)
           instance = get_server(instance_id)
           server_summary(instance)
-          ui.msg("")
+          ui.msg('')
 
           unless instance.orchestration.nil?
-            ui.error("Unable to delete this server.  Delete the orchestration instead.")
+            ui.error('Unable to delete this server.  Delete the orchestration instead.')
             exit(1)
           end
 
-          ui.confirm("Do you really want to delete this server")
+          ui.confirm('Do you really want to delete this server')
 
-          ui.msg("Deleting the instance...")
+          ui.msg('Deleting the instance...')
           instance.delete
 
-          ui.msg("Delete request complete.")
+          ui.msg('Delete request complete.')
         end
 
         def create_orchestration(options)
           connection.orchestrations.create(
             name: options[:name],
             description: "#{options[:name]} by #{connection.username} via Knife",
-            instances: [ instance_request(options) ]
+            instances: [instance_request(options)]
           )
         end
 
         def delete_orchestration(orchestration_id)
           orchestration = get_orchestration(orchestration_id)
           orchestration_summary(orchestration)
-          ui.msg("")
+          ui.msg('')
 
-          ui.confirm("Do you really want to delete this orchestration")
+          ui.confirm('Do you really want to delete this orchestration')
 
-          ui.msg("Stopping the orchestration and any instances...")
+          ui.msg('Stopping the orchestration and any instances...')
           orchestration.stop
-          wait_for_status(orchestration, "stopped")
+          wait_for_status(orchestration, 'stopped')
 
-          ui.msg("Deleting the orchestration and any instances...")
+          ui.msg('Deleting the orchestration and any instances...')
           orchestration.delete
 
-          ui.msg("Delete request complete.")
+          ui.msg('Delete request complete.')
         end
 
         def instance_request(options)
@@ -154,25 +158,25 @@ class Chef
         end
 
         def orchestration_summary(orchestration)
-          msg_pair("Orchestration ID", orchestration.name_with_container)
-          msg_pair("Description", orchestration.description)
-          msg_pair("Status", orchestration.status)
-          msg_pair("Instance Count", orchestration.instance_count)
+          msg_pair('Orchestration ID', orchestration.name_with_container)
+          msg_pair('Description', orchestration.description)
+          msg_pair('Status', orchestration.status)
+          msg_pair('Instance Count', orchestration.instance_count)
         end
 
         def server_summary(server, _columns_with_info = nil)
-          msg_pair("Server Label", server.label)
-          msg_pair("Status", server.status)
-          msg_pair("Hostname", server.hostname)
-          msg_pair("IP Address", server.ip_address.nil? ? "none" : server.ip_address)
-          msg_pair("Public IP Addresses", server.public_ip_addresses.empty? ? "none" : server.public_ip_addresses.join(", "))
-          msg_pair("Image", server.image)
-          msg_pair("Shape", server.shape)
-          msg_pair("Orchestration", server.orchestration.nil? ? "none" : server.orchestration)
+          msg_pair('Server Label', server.label)
+          msg_pair('Status', server.status)
+          msg_pair('Hostname', server.hostname)
+          msg_pair('IP Address', server.ip_address.nil? ? 'none' : server.ip_address)
+          msg_pair('Public IP Addresses', server.public_ip_addresses.empty? ? 'none' : server.public_ip_addresses.join(', '))
+          msg_pair('Image', server.image)
+          msg_pair('Shape', server.shape)
+          msg_pair('Orchestration', server.orchestration.nil? ? 'none' : server.orchestration)
         end
 
         def wait_for_status(item, requested_status)
-          last_status = ""
+          last_status = ''
 
           begin
             Timeout.timeout(wait_time) do
@@ -186,7 +190,7 @@ class Chef
                 end
 
                 if last_status == current_status
-                  print "."
+                  print '.'
                 else
                   last_status = current_status
                   print "\n"
@@ -197,7 +201,7 @@ class Chef
               end
             end
           rescue Timeout::Error
-            ui.msg("")
+            ui.msg('')
             ui.error("Request did not complete in #{wait_time} seconds. Check the Oracle Cloud Web UI for more information.")
             exit 1
           end
